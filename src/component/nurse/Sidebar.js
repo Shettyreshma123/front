@@ -28,11 +28,11 @@ import { FaUserNurse} from "react-icons/fa";
 import HandlePatient from "./HandlePatient";
 import Profile from "./Profile";
 import AddStaff from "../admin/AddStaff";
-import DispatchBlood from "./DispatchBlood";
-import BloodDonar from "./BloodDonar";
-import BloodBank from "./BloodBank";
-import BirthReport from "./BirthReport"
-import DeathReport from "./DeathReport";
+// import DispatchBlood from "./DispatchBlood";
+// import BloodDonar from "./BloodDonar";
+// import BloodBank from "./BloodBank";
+// import BirthReport from "./BirthReport"
+// import DeathReport from "./DeathReport";
 // import HandlePatient from "./HandlePatient";
 
 
@@ -130,11 +130,7 @@ function ResponsiveDrawer(props) {
         {[
         //   { text: "Prescriptions", iconComponent: <DescriptionIcon />, role: "Prescriptions" },
           { text: "Patients", iconComponent: <PeopleIcon />, role: "Patients" },
-          { text: "Blood Donor", iconComponent: <LocalHospitalIcon />, role: "Blood Donor" },
-          { text: "Dispatch Blood", iconComponent: <LocalDrinkIcon />, role: "Dispatch Blood" },
-          { text: "Blood Banks", iconComponent: <AccountBalanceIcon />, role: "Blood Banks" },
-          { text: "Birth Report", iconComponent: <EventNoteIcon />, role: "Birth Report" },
-          { text: "Death Report", iconComponent: <CancelIcon />, role: "Death Report" },
+          
           { text: "Profile", iconComponent: <AccountCircleIcon />, role: "Profile" },
           { text: "Logout", iconComponent: <LogoutIcon />, role: "Logout" },
         ].map(({ text, iconComponent, role }) => (
@@ -230,16 +226,7 @@ function ResponsiveDrawer(props) {
         <Toolbar />
 		{selectedRole === "Profile" ? (
           <Profile />
-         ): selectedRole === "Dispatch Blood" ? (
-          <DispatchBlood />
-          ): selectedRole === "Blood Donor" ? (
-            <BloodDonar/>
-            ): selectedRole === "Blood Banks" ? (
-              <BloodBank/>
-              ): selectedRole === "Birth Report" ? (
-                <BirthReport/>
-                ): selectedRole === "Death Report" ? (
-                  <DeathReport/>
+       
                 ): selectedRole === "Patients" ? (
                   <HandlePatient/>
         ) : (

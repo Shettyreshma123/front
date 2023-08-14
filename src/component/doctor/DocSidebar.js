@@ -18,22 +18,18 @@ import { FaUserMd } from "react-icons/fa";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import React, { useState } from "react";
 import PeopleIcon from "@mui/icons-material/People";
-import DescriptionIcon from "@mui/icons-material/Description";
-import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
-import LocalDrinkIcon from "@mui/icons-material/LocalDrink";
-import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
-import EventNoteIcon from "@mui/icons-material/EventNote";
-import CancelIcon from "@mui/icons-material/Cancel";
+// import DescriptionIcon from "@mui/icons-material/Description";
+// import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
+// import LocalDrinkIcon from "@mui/icons-material/LocalDrink";
+// import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
+// import EventNoteIcon from "@mui/icons-material/EventNote";
+// import CancelIcon from "@mui/icons-material/Cancel";
 
 import HandlePatient from "./HandlePatient";
 import DocProfile from "./DocProfile";
 import AddStaff from "../admin/AddStaff";
 import EditPatient from "./EditPatient";
-import BloodDonar from "./BloodDonar";
-import DispatchBlood from "./DispatchBlood";
-import BloodBank from "./BloodBank";
-import BirthReport from "./BirthReport";
-import DeathReport from "./DeathReport";
+
 
 
 const drawerWidth = 240;
@@ -128,11 +124,6 @@ function ResponsiveDrawer(props) {
         {[
           // { text: "Prescriptions", iconComponent: <DescriptionIcon />, role: "Prescriptions" },
           { text: "Patients", iconComponent: <PeopleIcon />, role: "Patients" },
-          { text: "Blood Donor", iconComponent: <LocalHospitalIcon />, role: "Blood Donor" },
-          { text: "Dispatch Blood", iconComponent: <LocalDrinkIcon />, role: "Dispatch Blood" },
-          { text: "Blood Banks", iconComponent: <AccountBalanceIcon />, role: "Blood Banks" },
-          { text: "Birth Report", iconComponent: <EventNoteIcon />, role: "Birth Report" },
-          { text: "Death Report", iconComponent: <CancelIcon />, role: "Death Report" },
           { text: "Profile", iconComponent: <AccountCircleIcon />, role: "Profile" },
           { text: "Logout", iconComponent: <LogoutIcon />, role: "Logout" },
         ].map(({ text, iconComponent, role }) => (
@@ -230,16 +221,7 @@ function ResponsiveDrawer(props) {
           <DocProfile />
         ) : selectedRole === "Patients" ? (
           <HandlePatient />
-          ) : selectedRole === "Blood Donor" ? (
-            <BloodDonar />
-            ) : selectedRole === "Dispatch Blood" ? (
-              <DispatchBlood />
-              ) : selectedRole === "Blood Banks" ? (
-                <BloodBank />
-                ) : selectedRole === "Birth Report" ? (
-                  <BirthReport />
-                  ) : selectedRole === "Death Report" ? (
-                    <DeathReport />
+         
         ) : (
           <>
             {!selectedRole && (

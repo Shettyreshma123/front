@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './HomePage.css';
 import { useNavigate } from 'react-router-dom';
 
-const HomePage = () => {
+const Home = () => {
   const [showLoginOptions, setShowLoginOptions] = useState(false);
   const navigate = useNavigate();
 
@@ -48,4 +48,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default Home;

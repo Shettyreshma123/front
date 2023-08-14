@@ -20,13 +20,11 @@ import React, { useState } from "react";
 import PeopleIcon from "@mui/icons-material/People";
 // import DescriptionIcon from "@mui/icons-material/Description";
 import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
-import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
-
+import EventNoteIcon from "@mui/icons-material/EventNote"; 
 
 import HandlePatient from "./HandlePatient";
 import Profile from "./Profile";
 import AddStaff from "../admin/AddStaff";
-import Interns from "./Interns";
 import Report from "./Report";
 // import EditPatient from "./EditPatient";
 
@@ -84,13 +82,8 @@ function ResponsiveDrawer(props) {
   };
 
   const fieldColors = {
-    Prescriptions: "#FF5722",
+    
     Patients: "#4CAF50",
-    "Blood Donor": "#9C27B0",
-    "Dispatch Blood": "#3F51B5",
-    "Blood Banks": "#FF9800",
-    "Birth Report": "#E91E63",
-    "Death Report": "#607D8B",
     Profile: "#FFC107",
     Logout: "#F44336",
   };
@@ -122,8 +115,8 @@ function ResponsiveDrawer(props) {
         {[
         //   { text: "Prescriptions", iconComponent: <DescriptionIcon />, role: "Prescriptions" },
           { text: "Patients", iconComponent: <PeopleIcon />, role: "Patients" },
-          { text: "Report ", iconComponent: < LocalHospitalIcon  />, role: "Report" },
-          { text: "Interns", iconComponent: <BusinessCenterIcon />, role: "Interns" },
+          { text: "Report ", iconComponent: < EventNoteIcon style={{ color: "#2196F3" }} />, role: "Report" },
+          
           { text: "Profile", iconComponent: < AccountCircleIcon  />, role: "Profile" },
           { text: "Logout", iconComponent: <LogoutIcon />, role: "Logout" },
         ].map(({ text, iconComponent, role }) => (
@@ -221,8 +214,7 @@ function ResponsiveDrawer(props) {
           <Profile />
         ) : selectedRole === "Patients" ? (
           <HandlePatient />
-          ) : selectedRole === "Interns" ? (
-            <Interns />
+         
             ) : selectedRole === "Report" ? (
               <Report />
         ) : (

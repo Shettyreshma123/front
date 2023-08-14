@@ -208,20 +208,20 @@ function PatientSidebar(props) {
           {drawer}
         </Drawer>
       </Box>
-      <Box component="main" sx={mainContentStyles}>
+      {/* <Box component="main" sx={mainContentStyles}>
         <Toolbar />
         {selectedRole === "Profile" ? (
           <Profile />
-        // ) : selectedRole === "Appointments" ? (
-        //   <HandlePatient />
-        // ) : selectedRole === "Medical Records" ? (
-        //   <MedicalRecords /> 
-        // ) : selectedRole === "Prescriptions" ? (
-        //   <Prescriptions />
-        // ) : selectedRole === "Billing" ? (
-        //   <Billing />
-        // ) : selectedRole === "Health Tracking" ? (
-        //   <HealthTracking /> 
+        ) : selectedRole === "Appointments" ? (
+          <HandlePatient />
+        ) : selectedRole === "Medical Records" ? (
+          <MedicalRecords /> 
+        ) : selectedRole === "Prescriptions" ? (
+          <Prescriptions />
+        ) : selectedRole === "Billing" ? (
+          <Billing />
+        ) : selectedRole === "Health Tracking" ? (
+          <HealthTracking /> 
         ) : (
           <>
             {!selectedRole && (
@@ -232,7 +232,7 @@ function PatientSidebar(props) {
             )}
           </>
         )}
-      </Box>
+      </Box> */}
     </Box>
   );
 }

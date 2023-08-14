@@ -19,6 +19,7 @@ import { Visibility, VisibilityOff } from "@material-ui/icons";
 import ForgetPasswordForm from "./ForgetPasswordForm";
 import "./style.css";
 import { useNavigate } from "react-router-dom";
+// import userHome from "../component/patient/patHome"
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -94,19 +95,37 @@ const LoginUser = () => {
 		.post("http://localhost:3000/api/hbms/logg_user", data)
 		.then((res) => {
 		//   console.log(res);
-		 if (res.status === 200) {
-			navigate("/patientform");
-			localStorage.setItem("access_token",res.data.access_token);
-		  } else {
-			console.log(res.data);
-			toast.success(res.data);
-		  }
-		})
-		.catch((err) => {
-		  console.log(err);
-		});
-	}	
-
+	// 	 if (res.status === 200) {
+	// 		navigate("/pathome");
+	// 		localStorage.setItem("access_token",res.data.access_token);
+	// 	  } else {
+	// 		console.log(res.data);
+	// 		toast.success(res.data);
+	// 	  }
+	// 	})
+	// 	.catch((err) => {
+	// 	  console.log(err);
+	// 	});
+	// }	
+  if (res.status === 200) {
+    console.log(res.data);
+    localStorage.setItem("access_token", res.data.access_token);
+    const registrationComplete = localStorage.getItem("registrationComplete");
+    
+    if (registrationComplete === "true") {
+      navigate("/patientform"); // Redirect to registration form
+    } else {
+      navigate("/pathome"); // Redirect to home page
+    }
+  } else {
+    console.log(res.data);
+    toast.success(res.data);
+  }
+})
+  .catch((err) => {
+    console.log(err);
+  });
+}	
 
 
   return (

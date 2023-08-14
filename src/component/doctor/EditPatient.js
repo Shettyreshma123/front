@@ -6,7 +6,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 import "../doctor/style.css";
-import isEmpty from "react-toast-notification/utils/isEmpty";
+// import isEmpty from "react-toast-notification/utils/isEmpty";
 
 const EditPatient = ({
   editModal,
@@ -134,7 +134,7 @@ const EditPatient = ({
 
     try {
       const response = await axios.put(
-        `http://localhost:3000/api/hbms/update_patient/${data.id}`,
+        `http://localhost:3000/api/hbms/update_patform/${data.id}`,
        
         formData,
         config

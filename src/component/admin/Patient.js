@@ -5,6 +5,8 @@ import "../admin/style.css"
 
 function Patient() {
   const [columns, setColumns] = useState([]);
+  // const [columns, setColumns] = useState([]);
+  const [loggedInDate, setLoggedInDate] = useState("");
 
   useEffect(() => {
     const config = {
@@ -15,7 +17,14 @@ function Patient() {
       .get("http://localhost:3000/api/hbms/View_patient", config)
       
       .then((res) => {
+        console.log(res.data); 
         setColumns(res.data);
+
+        if (res.data.length > 0) {
+          const currentLoginDate = res.data[0].loginDate;
+          setLoggedInDate(currentLoginDate);
+        }
+        
         
       })
       .catch((err) => {
@@ -34,11 +43,17 @@ function Patient() {
     { field: "chiefcomplaint", headerName: "Chief Complaint", width: 150, sortable: false ,headerClassName: "header-black"},
     { field: "timeofregistration", headerName: "Time Of Registration", width: 200, sortable: false,headerClassName: "header-black" },
     { field: "address", headerName: "Address", width: 150, sortable: false,headerClassName: "header-black"},
+    { field: "loginDate", headerName: "Login Date", width: 200, sortable: false, headerClassName: "header-black" },
   ];
 
   return (
     <div className="bg1">
       <div className="container">
+      {/* <div className="loggedInDate">
+          {loggedInDate && (
+            <p>Patients logged in on: {loggedInDate}</p>
+          )}
+        </div> */}
         <div style={{ width: "100%", overflowX: "auto" }}>
           <DataGrid
             rows={columns}

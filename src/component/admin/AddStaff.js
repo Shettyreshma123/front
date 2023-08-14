@@ -77,7 +77,7 @@ const AddStaff = () => {
       .catch((error) => console.error(error));
 
       axios
-      .get("http://localhost:3000/api/hbms/View_patient", header)
+      .get("http://localhost:3000/api/hbms/view_patform", header)
       .then((response) => {
         const patientCount = response.data;
         setPatientCount(patientCount.length);

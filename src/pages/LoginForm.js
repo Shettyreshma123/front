@@ -106,7 +106,11 @@ const Login = () => {
             } else if (res.data.role === "Receptionist") {
               navigate("/receptionist");
               localStorage.setItem("access_token", res.data.access_token);
-            } else {
+            } 
+            else if (res.data.role === "LabTechnician") {
+              navigate("/labtechnician");
+              localStorage.setItem("access_token", res.data.access_token);
+            }else {
               console.log(data);
               // toast.error("Invalid role");
             }

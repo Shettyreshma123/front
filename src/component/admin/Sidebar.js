@@ -26,6 +26,7 @@ import Admin from "./Admin";
 import AddStaff from "./AddStaff";
 import Profile from './Profile';
 import Patient from './Patient';
+import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 
 
 const drawerWidth = 240;
@@ -82,20 +83,21 @@ function ResponsiveDrawer(props) {
         }}
       >
         {[
-          { text: "Doctor", iconComponent: <FaUserMd color="primary"/>, role: "Doctor" },
-          { text: "Nurse", iconComponent: <FaUserNurse color="secondary" />, role: "Nurse" },
+          { text: "Doctor", iconComponent: <FaUserMd style={{ color: "#2196F3" }}/>, role: "Doctor" },
+          { text: "Nurse", iconComponent: <FaUserNurse style={{ color: "#E91E63" }}/>, role: "Nurse" },
           {
             text: "Receptionist",
-            iconComponent: <FaUserCheck style={{ color: "#ff0000" }}/>,
+            iconComponent: <FaUserCheck style={{ color: "#FF9800" }}/>,
             role: "Receptionist",
           },
+          { text: "LabTechnician", iconComponent: <LocalHospitalIcon  style={{ color: "#3F51B5" }}/>, role: "LabTechnician" },
           { text: "Patients", iconComponent: <PeopleIcon   style={{ color: "4CAF50" }}/>, role: "Patients" },
           { text: 'Profile', iconComponent: <AccountCircleIcon style={{ color: "FFC107" }}/>, role:"Profile" },
           
           {
             text: "Logout",
-            iconComponent: <LogoutIcon />,
-
+            iconComponent: <LogoutIcon 
+            style={{ color: "#F44336" }} />,
             role: "Logout",
           },
         ].map(({ text, iconComponent, role }) => (

@@ -1,65 +1,72 @@
 import React, { useEffect, useState } from "react";
-
 import axios from "axios";
-
-import { Link, useNavigate } from "react-router-dom";
-// import AddModal from "./modal/AddModal";
-// import EditModal from "./modal/EditModal";
-// import { FaRegEdit, FaTrash } from "react-icons/fa";
-import ModalImage from "react-modal-image";
+import { IconButton } from "@mui/material";
+import {
+  TableContainer,
+  Paper,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
+} from "@mui/material";
+import TablePagination from "@mui/material/TablePagination";
 import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { DataGrid } from "@mui/x-data-grid";
-import DocProfile from "./DocProfile";
+import EditModal from "./EditPatient";
+
 import { FaRegEdit, FaTrash } from "react-icons/fa";
 import { AiOutlineFileText } from "react-icons/ai";
 import jwtDecode from "jwt-decode";
-import "../admin/style.css";
-import EditPatient from "./EditPatient";
 import PatientDetailsModal from "./PatientDetails";
-// import AddModal from "./AddModal";
+import "./style.css";
+
 
 function HandlePatient() {
-  const navigate = useNavigate();
-  const [columns, setColumns] = useState([]);
-  const [modal, setModal] = useState(false);
+  const [patients, setPatients] = useState([]);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
   const [editModal, setEditModal] = useState(false);
-  const [selectedRole, setSelectedRole] = useState("");
   const [addModal, setAddModal] = useState(false);
   const [doctorId, setDoctorId] = useState(null);
-  const [patients, setPatients] = useState([]);
   const [selectedPatient, setSelectedPatient] = useState(null); 
-  const [patientDetailsModalOpen, setPatientDetailsModalOpen] = useState(false);
-
-  const handlePatientNameClick = (patient) => {
-    setSelectedPatient(patient); // Set selected patient
-    setPatientDetailsModalOpen(true); // Open the modal
-  };
-  
-
-
+  const [patientDetailsModalOpen, setPatientDetailsModalOpen] = useState(false); 
   const [data, setData] = useState({
     id: "",
     username: "",
     email: "",
-    gender: "",
     phone: "",
+    gender: "",
     age: "",
-    bloodgroup: "",
     chiefcomplaint: "",
+    bloodgroup: "",
     timeofregistration: "",
-    bloodpressure: "",
-    sugarlevel: "",
     address: "",
-    doctorId: "",
+    message: "",
   });
+
   const header = {
     headers: {
       auth: localStorage.getItem("access_token"),
     },
   };
 
+  const handlePageChange = (event, newPage) => {
+    setPage(newPage);
+  };
 
+  const handleRowsPerPageChange = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0); 
+  };
+
+  const tableContainerStyle = {
+    width: "100%",
+    maxWidth: "400px",
+    border: "1px solid black",
+    overflow: "auto",
+  };
+
+ 
 
   const handleDelete = (id) => {
     if (window.confirm("Do you want to delete this user?")) {
@@ -80,83 +87,48 @@ function HandlePatient() {
     }
   };
 
+  const handlePatientClick = (patient) => {
+    setSelectedPatient(patient);
+    setPatientDetailsModalOpen(true);
+  };
+
   function handleEdit(
     id,
-    username,
+    name,
     email,
-    gender,
-    age,
     phone,
-    bloodgroup,
+    gender,
     chiefcomplaint,
+    age,
+    bloodgroup,
     timeofregistration,
-    bloodpressure,
-    sugarlevel,
     address,
-    textarea
+    message,
   ) {
     setEditModal(true);
     setData({
       ...data,
       id: id,
-      username: username,
+      name: name,
       email: email,
-      gender: gender,
-      
-      age: age,
       phone: phone,
-      bloodgroup: bloodgroup,
+      gender: gender,
       chiefcomplaint: chiefcomplaint,
+      age: age,
+      bloodgroup: bloodgroup,
       timeofregistration: timeofregistration,
-      bloodpressure: bloodpressure,
-      sugarlevel: sugarlevel,
       address: address,
-      textarea: textarea,
+      message: message,
     });
   }
 
-  const toggle = () => setModal(!modal);
+  const handleAdd = () => {
+    setAddModal(true); // Show the "Add" modal
+  };
 
-//   useEffect(() => {
-//     if (localStorage.getItem("access_token")) {
-//       navigate("/doctor");
-//     } else {
-//       navigate("/login");
-//     }
-//     // const doctorId = localStorage.getItem("doctorId");
+ 
 
-//     const config = {
-//       headers: { auth: localStorage.getItem("access_token") },
-//     };
-//     // 	const doctorId = localStorage.getItem("doctorId");
-
-//     //   // If doctorId is not available, return or show a message to select a doctor
-//     //   if (!doctorId) {
-//     //     console.log("Doctor ID not found. Please select a doctor.");
-//     //     return;
-//     //   }
-
-//     if (doctorId) {
-//       axios
-//         .get("http://localhost:3000/api/hbms/View_patient", header)
-//         .then((response) => {
-//           const responseData = response.data;
-
-//           // Filter the patients based on the doctorId and store them in a new array
-//           const filteredPatients = responseData.filter(
-//             (columns) => columns.doctorId === doctorId
-//           );
-//           console.log(filteredPatients);
-//           setColumns(filteredPatients);
-//         })
-//         .catch((error) => {
-//           console.log(error);
-//         });
-//     }
-//   }, [doctorId]);
-
-
-const fetchDoctorId = () => {
+  const fetchDoctorId = () => {
     const token = localStorage.getItem("access_token");
     if (token) {
       const decodedToken = jwtDecode(token);
@@ -164,224 +136,132 @@ const fetchDoctorId = () => {
       setDoctorId(decodedToken.user_id);
     }
   };
-
-
   useEffect(() => {
-    // Fetch the logged-in doctor's ID before fetching the patients
     fetchDoctorId();
   }, []);
+
   useEffect(() => {
-	if (localStorage.getItem("access_token")) {
-	  navigate("/doctor");
-	} else {
-	  navigate("/login");
-	}
-  
-	if (doctorId) {
-    const header = {
-      headers: {
-        auth: localStorage.getItem("access_token"),
-      },
-    };
-  
-    axios
-      .get("http://localhost:3000/api/hbms/view_patform", header)
-      .then((response) => {
-        const responseData = response.data;
-  
-        // Log the received data for debugging
-        console.log("Received data:", responseData);
-  
-        // Filter the patients based on the doctorId and store them in the state
-        const filteredPatients = responseData.filter(
-          (patient) => patient.doctorId === doctorId
-        );
-  
-        // Log the filtered patients for debugging
-        console.log("Filtered patients:", filteredPatients);
-  
-        // Update the 'columns' state with the filtered patients
-        setColumns(filteredPatients);
-      })
-      .catch((error) => {
-        console.log("Error fetching patients:", error);
-      });
-  }
+    if (doctorId) {
+      axios
+        .get("http://localhost:3000/api/hbms/view_patform", header)
+        .then((response) => {
+          const responseData = response.data;
+          const filteredPatients = responseData.filter(
+            (patient) => patient.doctorId === doctorId
+          );
+          console.log(filteredPatients);
+          setPatients(filteredPatients);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   }, [doctorId]);
   
+  
+ 
 
-
-  const columnsDataGrid = [
-    {
-      field: "username",
-      headerName: "Name",
-      width: 200,
-      sortable: false,
-      headerClassName: "header-black",
-    },
-    {
-      field: "email",
-      headerName: "Email",
-      width: 200,
-      sortable: false,
-      headerClassName: "header-black",
-    },
-    {
-      field: "gender",
-      headerName: "Gender",
-      width: 200,
-      sortable: false,
-      headerClassName: "header-black",
-    },
-    {
-      field: "age",
-      headerName: "Age",
-      width: 200,
-      sortable: false,
-      headerClassName: "header-black",
-    },
-    {
-      field: "phone",
-      headerName: "Phone",
-      width: 150,
-      sortable: false,
-      headerClassName: "header-black",
-    },
-    {
-      field: "bloodgroup",
-      headerName: "Bloodgroup",
-      width: 150,
-      sortable: false,
-      headerClassName: "header-black",
-    },
-    {
-      field: "chiefcomplaint",
-      headerName: "chiefcomplaint",
-      width: 150,
-      sortable: false,
-      headerClassName: "header-black",
-    },
-    {
-      field: "timeofregistration",
-      headerName: "Time Of Registration",
-      width: 200,
-      sortable: false,
-      headerClassName: "header-black",
-    },
-    {
-      field: "bloodpressure",
-      headerName: "BloodPressure",
-      width: 200,
-      sortable: false,
-      headerClassName: "header-black",
-    },
-    {
-      field: "sugarlevel",
-      headerName: "SugarLevel",
-      width: 200,
-      sortable: false,
-      headerClassName: "header-black",
-    },
-    {
-      field: "address",
-      headerName: "Address",
-      width: 150,
-      sortable: false,
-      headerClassName: "header-black",
-    },
-    {
-      field: "textarea",
-      headerName: "Text Area",
-      width: 150,
-      sortable: false,
-      headerClassName: "header-black",
-    },
-    {
-      field: "actions",
-      headerName: "Action",
-      width: 150,
-      headerClassName: "header-black",
-      renderCell: (params) => (
-        <div>
-          <button
-            className="btn-st prescriptions-button"
-            style={{
-              marginRight: "15px",
-              backgroundColor: "blue", // Set the background color
-              color: "white", // Set the text color
-              padding: "5px 10px", // Set padding for the button
-              borderRadius: "5px",
-            }}
-            onClick={() =>
-              handleEdit(
-                params.row.id,
-                params.row.username,
-                params.row.email,
-                params.row.gender,
-                params.row.age,
-                params.row.phone,
-                params.row.bloodgroup,
-                params.row.chiefcomplaint,
-                params.row.timeofregistration,
-                params.row.bloodpressure,
-                params.row.sugarlevel,
-                params.row.address
-              )
-            }
-          >
-            <AiOutlineFileText />
-          </button>
+  return (
+    <div sx={tableContainerStyle}>
+      <TableContainer component={Paper}>
+      {/* <button onClick={handleAdd} className="bu1">
+          Add Patients
+        </button> */}
+        <Table>
+          <TableHead sx={{ backgroundColor: "black" }}>
+            <TableRow>
+              <TableCell sx={{ color: "white" }}>Name</TableCell>
+              <TableCell sx={{ color: "white" }}>Email</TableCell>
+              <TableCell sx={{ color: "white" }}>Phone</TableCell>
+              <TableCell sx={{ color: "white" }}>Gender</TableCell>
+              <TableCell sx={{ color: "white" }}>Chief Complaint</TableCell>
+              <TableCell sx={{ color: "white" }}>Age</TableCell>
+              <TableCell sx={{ color: "white" }}>Bloodgroup</TableCell>
+              <TableCell sx={{ color: "white" }}>
+                AppointedTime
+              </TableCell>
+              <TableCell sx={{ color: "white" }}>Address</TableCell>
+              <TableCell sx={{ color: "white" }}>message</TableCell>
+              <TableCell sx={{ color: "white" }}>Prescribe</TableCell>
+              <TableCell sx={{ color: "white" }}>Action</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {patients.map((patient, index) => (
+              <TableRow key={index}>
+                 <TableCell>
+                  <span
+                    style={{ cursor: "pointer" }}
+                    onClick={() => handlePatientClick(patient)} 
+                  >
+                    {patient.username}
+                  </span>
+                </TableCell>
+                <TableCell>{patient.email}</TableCell>
+                <TableCell>{patient.phone}</TableCell>
+                <TableCell>{patient.gender}</TableCell>
+                <TableCell>{patient.chiefcomplaint}</TableCell>
+                <TableCell>{patient.age}</TableCell>
+                <TableCell>{patient.bloodgroup}</TableCell>
+                <TableCell>{patient.timeofregistration}</TableCell>
+                <TableCell>{patient.address}</TableCell>
+                <TableCell>{patient.message}</TableCell>
+                <TableCell>{patient.Prescribe}</TableCell>
+                <TableCell>
+                   <button
+                    className="btn-st prescriptions-button"
+                    style={{
+                      marginRight: "15px",
+                      backgroundColor: "blue", // Set the background color
+                      color: "white", // Set the text color
+                      padding: "5px 10px", // Set padding for the button
+                      borderRadius: "5px",
+                    }}
+                    onClick={() =>
+                      handleEdit(
+                        patient.id,
+                        patient.username,
+                        patient.email,
+                        patient.phone,
+                        patient.gender,
+                        patient.chiefcomplaint,
+                        patient.age,
+                        patient.bloodgroup,
+                        patient.timeofregistration,
+                        patient.address,
+                        patient.message,
+                      )
+                    }
+                  >
+                    <AiOutlineFileText/>
+                    </button>
           <button
             className="btn-st delete-button"
-            onClick={() => handleDelete(params.row.id)}
+            onClick={() => handleDelete(patient.row.id)}
           >
             <FaTrash />
           </button>
-        </div>
-      ),
-    },
-  ];
-
-  return (
-    <div className="bg1">
-      {/* <div>
-          <button onClick={() => handleAdd()} className="addbtn">
-            Add
-          </button>
-        </div> */}
-      <div className="container">
-        {selectedRole === "Profile" ? (
-          <DocProfile />
-        ) : (
-          <div style={{ width: "100%", overflowX: "auto" }}>
-            <DataGrid
-              rows={columns}
-              columns={columnsDataGrid}
-              onRowClick={(params) => handlePatientNameClick(params.row)}
-              disableColumnFilter
-              disableColumnMenu
-              // pageSize={5}
-
-              initialState={{
-                pagination: {
-                  paginationModel: { page: 0, pageSize: 5 },
-                },
-              }}
-              pageSizeOptions={[5, 10, 15]}
-              disableSelectionOnClick
-            />
-          </div>
-        )}
-      </div>
-      {selectedPatient && patientDetailsModalOpen && (
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
       <PatientDetailsModal
         open={patientDetailsModalOpen}
         onClose={() => setPatientDetailsModalOpen(false)}
         patient={selectedPatient}
       />
-    )}
-      
-      <EditPatient
+      <TablePagination
+        rowsPerPageOptions={[5, 10, 15]}
+        component="div"
+        count={patients.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handlePageChange}
+        onRowsPerPageChange={handleRowsPerPageChange}
+      />
+      <EditModal
         editModal={editModal}
         handleEdit={handleEdit}
         onClose={() => setEditModal(false)}
@@ -391,4 +271,5 @@ const fetchDoctorId = () => {
     </div>
   );
 }
+
 export default HandlePatient;

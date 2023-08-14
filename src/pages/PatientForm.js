@@ -53,7 +53,7 @@ const PatientForm = () => {
       <h2>Patient Registration</h2>
       <form onSubmit={handleSubmit}>
         <label>
-          Username:
+          Name:
           <input type="text" name="username" value={formData.username} onChange={handleChange} required />
         </label>
         <br />
