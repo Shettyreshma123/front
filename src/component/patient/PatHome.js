@@ -16,11 +16,12 @@ import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
 import Profile from "./Profile";
 
 const pages = ["Book An Appointment", "Track Medical", "Profile"];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const settings = ["Profile", "Account", "Dashboard"];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   const navigate = useNavigate();
 
   const handleOpenNavMenu = (event) => {
@@ -36,6 +37,12 @@ function ResponsiveAppBar() {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+  const handleLogout = () => {
+    localStorage.removeItem("access_token");
+    setIsLoggedIn(false); 
+    console.log("Logout");
+    navigate("/loginuser"); 
   };
   
   const [userData, setUserData] = React.useState(null); // State to store user data
@@ -94,12 +101,14 @@ function ResponsiveAppBar() {
             onClick={handleCloseNavMenu}
             component={Link} // Use Link component for navigation
             to={
-                page === "Book An Appointment"
-                  ? "/patientform"
-                  : page === "Profile"
-                  ? "/profile"
-                  : "/"
-              }
+              page === "Book An Appointment"
+                ? "/patientform"
+                : page === "Profile"
+                ? "/profile"
+                : page === "Track Medical"
+                ?  "/pattracking"
+                : "/"
+            }
             sx={{
               my: 2,
               color: "white",
@@ -141,8 +150,29 @@ function ResponsiveAppBar() {
                 ) : (
                   <Typography textAlign="center">{setting}</Typography>
                 )}
+                
               </MenuItem>
               ))}
+             {isLoggedIn ? (
+                settings.map((setting) => (
+                  <MenuItem
+                    key={setting}
+                    onClick={
+                      setting === "Profile"
+                        ? handleProfileClick
+                        : handleCloseUserMenu
+                    }
+                  >
+                    <Typography textAlign="center"></Typography>
+                  </MenuItem>
+                ))
+              ) : (
+                <MenuItem onClick={handleLogout}>
+                  <Typography textAlign="center">Logout</Typography>
+                </MenuItem>
+              )}
+              
+             
             </Menu>
           </Box>
         </Toolbar>

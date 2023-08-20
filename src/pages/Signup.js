@@ -59,6 +59,7 @@ const Signup = () => {
   const [isPhone, setisPhone] = useState("");
   const [isGender, setisGender] = useState("");
   const [isBloodgroup, setisBloodgroup] = useState("");
+  
   const [isPassword, setisPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showForgotPasswordForm, setShowForgotPasswordForm] = useState(false);
@@ -90,6 +91,8 @@ const Signup = () => {
     setisBloodgroup(e.target.value);
   };
 
+ 
+
   const handlePasswordChange = (e) => {
     setisPassword(e.target.value);
   };
@@ -119,6 +122,7 @@ const Signup = () => {
 	  phone:isPhone,
 	  gender:isGender,
 	  bloodgroup:isBloodgroup,
+   
       password: isPassword,
     };
   
@@ -127,8 +131,10 @@ const Signup = () => {
 		.then((res) => {
 		//   console.log(res);
 		 if (res.status === 200) {
+      localStorage.setItem("signupData", JSON.stringify(data)); // Store data in local storage
+      localStorage.setItem("access_token", res.data.access_token);
 			navigate("/loginuser");
-			localStorage.setItem("access_token",res.data.access_token);
+			// localStorage.setItem("access_token",res.data.access_token);
 		  } else {
 			console.log(res.data);
 			toast.success(res.data);

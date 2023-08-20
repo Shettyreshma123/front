@@ -9,7 +9,7 @@ import Doctor from "./component/doctor/Doctor";
 import Admin from "./component/admin/Admin";
 import Nurse from "./component/nurse/Nurse";
 import Receptionist from "./component/receptionist/Receptionist";
-import Patient from "./component/patient/Patient"
+// import Patient from "./component/patient/Patient"
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
@@ -23,9 +23,10 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Menu from "./pages/Menu";
 import Pagenotfound from "./pages/Pagenotfound";
+import Lab from "./component/labtechnician/Lab";
+import PatTracking from "./component/patient/PatTracking";
 
 // import LoginUser from './pages/LoginUser';
-
 
 
 function App() {
@@ -42,7 +43,7 @@ function App() {
           {/* <Route  path="/patient" element={<Patient/>} /> */}
 		  <Route path="/profile" element={<Profile />} />
           <Route  path="/patientform" element={<PatientForm/>} />
-          <Route  path="/patient" element={<Patient/>} />
+          <Route  path="/labtechnician" element={<Lab/>} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/doctor" element={<Doctor />} />
           <Route path="/nurse" element={<Nurse />} />
@@ -52,6 +53,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/menu" element={<Menu />} />
+          <Route path="/pattracking" element={<PatTracking />} />
           <Route path="*" element={<Pagenotfound />} />
         </Routes>
       </BrowserRouter>

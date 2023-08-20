@@ -94,12 +94,12 @@ const EditPatient = ({
   const handleTimeofregistrationChange = (e) => {
     setData({ ...data, timeofregistration: e.target.value });
   };
-  const handleBloodpressureChange = (e) => {
-    setData({ ...data, bloodpressure: e.target.value });
-  };
-  const handleSugarlevelChange = (e) => {
-    setData({ ...data, sugarlevel: e.target.value });
-  };
+  // const handleBloodpressureChange = (e) => {
+  //   setData({ ...data, bloodpressure: e.target.value });
+  // };
+  // const handleSugarlevelChange = (e) => {
+  //   setData({ ...data, sugarlevel: e.target.value });
+  // };
 
   const handleAddressChange = (e) => {
     setData({ ...data, address: e.target.value });
@@ -120,8 +120,8 @@ const EditPatient = ({
     formData.append("bloodgroup",data.bloodgroup);
     formData.append("chiefcomplaint",data.chiefcomplaint);
     formData.append("timeofregistration", data.timeofregistration);
-    formData.append("bloodpressure", data.bloodgroup);
-    formData.append("sugarlevel", data.sugarlevel);
+    // formData.append("bloodpressure", data.bloodgroup);
+    // formData.append("sugarlevel", data.sugarlevel);
     formData.append("address", data.address);
     formData.append("message", data.message);
 
@@ -151,8 +151,8 @@ const EditPatient = ({
           bloodgroup: "",
           chiefcomplaint: "",
           timeofregistration: "",
-          bloodpressure: "",
-          sugarlevel: "",
+          // bloodpressure: "",
+          // sugarlevel: "",
           address: "",
           message:"",
         });
@@ -306,7 +306,7 @@ const EditPatient = ({
           </div>
             <div className="col">
               <div className="form-group">
-            <label htmlFor="timeofregistration">Time Of Registration:</label>
+            <label htmlFor="timeofregistration">AppointedTime:</label>
             <input
               type="text"
               className="form-control"
@@ -318,7 +318,7 @@ const EditPatient = ({
           </div>
           </div>
           </div>
-          <div className="row">
+          {/* <div className="row">
             <div className="col">
               <div className="form-group">
             <label htmlFor="bloodpressure">BloodPressure:</label>
@@ -345,7 +345,7 @@ const EditPatient = ({
             />
           </div>
           </div>
-          </div>
+          </div> */}
         
           
           <div className="row">

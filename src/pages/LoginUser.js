@@ -94,28 +94,22 @@ const LoginUser = () => {
     axios
 		.post("http://localhost:3000/api/hbms/logg_user", data)
 		.then((res) => {
-		//   console.log(res);
-	// 	 if (res.status === 200) {
-	// 		navigate("/pathome");
-	// 		localStorage.setItem("access_token",res.data.access_token);
-	// 	  } else {
-	// 		console.log(res.data);
-	// 		toast.success(res.data);
-	// 	  }
-	// 	})
-	// 	.catch((err) => {
-	// 	  console.log(err);
-	// 	});
-	// }	
   if (res.status === 200) {
     console.log(res.data);
+    localStorage.setItem("loginDataF",res.data.firstname);
+    localStorage.setItem("loginDataL",res.data.lastname);
+    localStorage.setItem("loginDataE",res.data.email);
+    localStorage.setItem("loginDataP",res.data.phone);
+    localStorage.setItem("loginDataG",res.data.gender);
+    localStorage.setItem("loginDataB",res.data.bloodgroup);
     localStorage.setItem("access_token", res.data.access_token);
-    const registrationComplete = localStorage.getItem("registrationComplete");
-    
-    if (registrationComplete === "true") {
-      navigate("/patientform"); // Redirect to registration form
+    localStorage.setItem("loginUser", JSON.stringify(res.data));
+    const signupData = JSON.parse(localStorage.getItem("signupData")); // Retrieve signup data
+  if (signupData) {
+            localStorage.setItem("registrationComplete", "true");
+      navigate("/pathome"); // Redirect to registration form
     } else {
-      navigate("/pathome"); // Redirect to home page
+      navigate("/patientform"); // Redirect to home page
     }
   } else {
     console.log(res.data);

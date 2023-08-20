@@ -25,10 +25,17 @@ import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import EventNoteIcon from "@mui/icons-material/EventNote";
 import CancelIcon from "@mui/icons-material/Cancel";
 import { FaUserNurse} from "react-icons/fa";
+import BloodtypeIcon from "@mui/icons-material/Bloodtype";
+import SendIcon from "@mui/icons-material/Send";
 
 import Profile from "./Profile";
 import AddStaff from "../admin/AddStaff";
 import TestRequest from "./TestRequest";
+import BloodTest from "./BloodTest";
+import UrineTest from "./UrineTest";
+import BloodPressureTest from "./BPTest";
+import BloodSugarTest from "./SugarlevelTest";
+
 
 
 
@@ -123,6 +130,32 @@ function ResponsiveDrawer(props) {
         //   { text: "Prescriptions", iconComponent: <DescriptionIcon />, role: "Prescriptions" },
           
           { text: "TestRequest", iconComponent: <LocalHospitalIcon style={{ color: "#FF5722" }} />, role: "TestRequest" },
+          // { text: "Patient", iconComponent: <PeopleIcon />, role: "Patients" },
+          {
+            text: "BloodTest",
+            iconComponent: <BloodtypeIcon />,
+            role: "BloodTest",
+          },
+          {
+            text: "BloodPressureTest",
+            iconComponent: <BloodtypeIcon />,
+            role: "BloodPressureTest",
+          },
+          {
+            text: "BloodSugarTest.",
+            iconComponent: <BloodtypeIcon />,
+            role: "BloodSugarTest",
+          },
+          {
+            text: "UrineTest",
+            iconComponent: <BloodtypeIcon />,
+            role: "UrineTest",
+          },
+          // {
+          //   text: "Patients",
+          //   iconComponent: <SendIcon />,
+          //   role: "Patients",
+          // },
           { text: "Profile", iconComponent: <AccountCircleIcon />, role: "Profile" },
           { text: "Logout", iconComponent: <LogoutIcon />, role: "Logout" },
         ].map(({ text, iconComponent, role }) => (
@@ -220,6 +253,18 @@ function ResponsiveDrawer(props) {
           <Profile />
          ): selectedRole === "TestRequest" ? (
           <TestRequest />
+          ):selectedRole=== "BloodTest" ? (
+            <BloodTest />
+          ) 
+          : selectedRole === "UrineTest" ? (
+            <UrineTest />
+          ) 
+          : selectedRole === "BloodPressureTest" ? (
+            <BloodPressureTest />
+          ) 
+          : selectedRole === "BloodSugarTest" ? (
+            <BloodSugarTest />
+           
          
         ) : (
           <>
@@ -241,3 +286,6 @@ ResponsiveDrawer.propTypes = {
 };
 
 export default ResponsiveDrawer;
+
+
+

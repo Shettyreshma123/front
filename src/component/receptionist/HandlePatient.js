@@ -25,6 +25,7 @@ function HandlePatient() {
   const [editModal, setEditModal] = useState(false);
   const [selectedRole, setSelectedRole] = useState("");
   const [addModal, setAddModal] = useState(false);
+//   const [columnsDataGrid, setColumnsDataGrid] = useState([]);
 
   const [data, setData] = useState({
 	id:"",
@@ -121,6 +122,9 @@ function HandlePatient() {
 
   }, [columns]);
 
+
+
+
   const doctor = () => {
     if (role === "Doctor") {
       axios
@@ -142,6 +146,7 @@ function HandlePatient() {
 
 
   const columnsDataGrid = [
+
 	{ field: "username", headerName: "Name", width: 200 ,sortable:false,headerClassName: "header-black",},
 	{ field: "email", headerName: "Email", width: 200 ,sortable:false,headerClassName: "header-black",},
 	{ field: "gender", headerName: "Gender", width: 200 ,sortable:false,headerClassName: "header-black",},
@@ -199,6 +204,7 @@ function HandlePatient() {
   ),
 },
 ];
+
  
 
   return (
