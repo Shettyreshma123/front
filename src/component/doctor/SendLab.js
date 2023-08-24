@@ -128,29 +128,29 @@ import axios from "axios";
 
 const OtherInformationModal = ({ open, onClose, patient }) => {
   const [formData, setFormData] = useState({
-    username: patient.username,
-    email: patient.email,
-    age: patient.age,
-    chiefcomplaint: patient.chiefcomplaint,
-    bloodgroup: patient.bloodgroup,
-    testtype: patient.testtype,
+    username: patient.username || "",
+    email: patient.email || "",
+    age: patient.age || "",
+    chiefcomplaint: patient.chiefcomplaint || "",
+    bloodgroup: patient.bloodgroup || "",
+    testtype: patient.testtype || "",
   });
+
+  const handleClose = () => {
+    onClose();
+  };
 
   const modalStyle = {
     position: "absolute",
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: "85%",
-    maxWidth: "600px",
+    width: "85%", // Increase modal width
+    maxWidth: "600px", // Increase maximum modal width
     bgcolor: "white",
     boxShadow: 24,
     p: 4,
     borderRadius: "8px",
-  };
-
-  const handleClose = () => {
-    onClose();
   };
 
   const handleFormChange = (field, value) => {
@@ -162,27 +162,35 @@ const OtherInformationModal = ({ open, onClose, patient }) => {
 
   const handleFormSubmit = async () => {
     try {
-      await axios.put(`http://localhost:3000/api/hbms/patient_lab/${patient.id}`, formData);
-      
-      // Check if the test type is "BloodTest"
-      if (formData.testtype === "BloodTest") {
-        // Move the patient to the laboratory
-        await axios.put(`http://localhost:3000/api/hbms/list_bloodtestlab/${patient.id}`);
-        console.log("Patient moved to laboratory");
-      }
-      
+      console.log("Form Data before submitting:", formData);
+  
+      // Create headers with the authorization token
+      const headers = {
+        auth: localStorage.getItem("access_token"),
+      };
+  
+      const response = await axios.put(
+        `http://localhost:3000/api/hbms/patient_lab/${patient.id}`,
+        formData,
+        { headers } // Include the headers in the request
+      );
+  
+      // Log the response from the backend
+      console.log("Backend Response:", response.data);
+  
       // Handle success or show a notification
-      console.log("Success");
+      console.log("Success: Data updated");
       handleClose();
     } catch (error) {
       console.error("Error submitting data:", error);
       // Handle error or show a notification
     }
   };
+  
 
   return (
     <Modal open={open} onClose={handleClose}>
-    <Box sx={modalStyle}>
+      <Box sx={modalStyle}>
         <Typography variant="h5" gutterBottom>
           Other Information
         </Typography>
@@ -216,13 +224,12 @@ const OtherInformationModal = ({ open, onClose, patient }) => {
           onChange={(e) => handleFormChange("bloodgroup", e.target.value)}
           fullWidth
         />
-         <TextField
-          label="testtype"
+        <TextField
+          label="Test Type"
           value={formData.testtype}
           onChange={(e) => handleFormChange("testtype", e.target.value)}
           fullWidth
         />
-        {/* Add more fields as needed */}
         <Button onClick={handleFormSubmit} color="primary">
           Submit
         </Button>

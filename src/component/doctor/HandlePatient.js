@@ -41,7 +41,7 @@ function HandlePatient() {
     bloodgroup: "",
     timeofregistration: "",
     address: "",
-    message: "",
+    testtype: "",
   });
 
   const header = {
@@ -103,7 +103,7 @@ function HandlePatient() {
     bloodgroup,
     timeofregistration,
     address,
-    message,
+    testtype,
   ) {
     setEditModal(true);
     setData({
@@ -118,7 +118,7 @@ function HandlePatient() {
       bloodgroup: bloodgroup,
       timeofregistration: timeofregistration,
       address: address,
-      message: message,
+      testtype: testtype,
     });
   }
 
@@ -181,7 +181,7 @@ function HandlePatient() {
                 AppointedTime
               </TableCell>
               <TableCell sx={{ color: "white" }}>Address</TableCell>
-              <TableCell sx={{ color: "white" }}>message</TableCell>
+              <TableCell sx={{ color: "white" }}>testtype</TableCell>
               <TableCell sx={{ color: "white" }}>Prescribe</TableCell>
               <TableCell sx={{ color: "white" }}>Action</TableCell>
             </TableRow>
@@ -205,7 +205,7 @@ function HandlePatient() {
                 <TableCell>{patient.bloodgroup}</TableCell>
                 <TableCell>{patient.timeofregistration}</TableCell>
                 <TableCell>{patient.address}</TableCell>
-                <TableCell>{patient.message}</TableCell>
+                <TableCell>{patient.testtype}</TableCell>
                 <TableCell>{patient.Prescribe}</TableCell>
                 <TableCell>
                    <button
@@ -229,7 +229,7 @@ function HandlePatient() {
                         patient.bloodgroup,
                         patient.timeofregistration,
                         patient.address,
-                        patient.message,
+                        patient.testtype,
                       )
                     }
                   >

@@ -26,6 +26,7 @@ import HandlePatient from "./HandlePatient";
 import Profile from "./Profile";
 import AddStaff from "../admin/AddStaff";
 import Report from "./Report";
+import Billing from "./Billing";
 // import EditPatient from "./EditPatient";
 
 const drawerWidth = 240;
@@ -116,6 +117,7 @@ function ResponsiveDrawer(props) {
         //   { text: "Prescriptions", iconComponent: <DescriptionIcon />, role: "Prescriptions" },
           { text: "Patients", iconComponent: <PeopleIcon />, role: "Patients" },
           { text: "Report ", iconComponent: < EventNoteIcon style={{ color: "#2196F3" }} />, role: "Report" },
+          { text: "Billing ", iconComponent: < EventNoteIcon style={{ color: "#2196F3" }} />, role: "Billing" },
           
           { text: "Profile", iconComponent: < AccountCircleIcon  />, role: "Profile" },
           { text: "Logout", iconComponent: <LogoutIcon />, role: "Logout" },
@@ -217,6 +219,8 @@ function ResponsiveDrawer(props) {
          
             ) : selectedRole === "Report" ? (
               <Report />
+              ) : selectedRole === "Billing" ? (
+                <Billing />
         ) : (
           <>
             {!selectedRole && (

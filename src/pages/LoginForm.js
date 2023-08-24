@@ -3,7 +3,6 @@ import {
   Avatar,
   Button,
   CssBaseline,
-  TextField,
   Link,
   Grid,
   Typography,
@@ -19,6 +18,7 @@ import { Visibility, VisibilityOff } from "@material-ui/icons";
 import ForgetPasswordForm from "./ForgetPasswordForm";
 import "./style.css";
 import { useNavigate } from "react-router-dom";
+import TextField from '@mui/material/TextField';
 
 const useStyles = makeStyles((theme) => ({
   container: {

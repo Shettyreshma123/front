@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
@@ -40,17 +41,12 @@ function Profile() {
         <div className="profile-info">
           {/* <h2>Patient Profile</h2> */}
           <p>Firstname: {profile.firstname}</p>
-		  <p>Lastname: {profile.lastname}</p>
+      <p>Lastname: {profile.lastname}</p>
           <p>Email: {profile.email}</p>
           <p>Phone: {profile.phone}</p>
           <p>Gender: {profile.gender}</p>
-          <p>Age: {profile.age}</p>
-          <p>Chief Complaint: {profile.chiefcomplaint}</p>
-          <p>Blood Group: {profile.bloodgroup}</p>
-          <p>Time of Registration: {profile.timeofregistration}</p>
-          <p>Sugar Level: {profile.sugarlevel}</p>
-          <p>Blood Pressure: {profile.bloodpressure}</p>
-          <p>Address: {profile.address}</p>
+          {/* <p>Age: {profile.age}</p>
+          <p>Address: {profile.address}</p> */}
         </div>
       </div>
     </div>
@@ -58,3 +54,5 @@ function Profile() {
 }
 
 export default Profile;
+
+

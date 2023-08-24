@@ -3,7 +3,6 @@ import {
   Avatar,
   Button,
   CssBaseline,
-  TextField,
   Link,
   Grid,
   Typography,
@@ -19,6 +18,7 @@ import { Visibility, VisibilityOff } from "@material-ui/icons";
 import ForgetPasswordForm from "./ForgetPasswordForm";
 import "./style.css";
 import { useNavigate } from "react-router-dom";
+import TextField from '@mui/material/TextField';
 // import userHome from "../component/patient/patHome"
 
 const useStyles = makeStyles((theme) => ({
@@ -95,10 +95,16 @@ const LoginUser = () => {
 		.post("http://localhost:3000/api/hbms/logg_user", data)
 		.then((res) => {
   if (res.status === 200) {
+
     console.log(res.data);
-    localStorage.setItem("loginDataF",res.data.firstname);
-    localStorage.setItem("loginDataL",res.data.lastname);
+    const loginData = { firstname: res.data.firstname };
+    localStorage.setItem("loginDataID", res.data.user_id);
+    // localStorage.setItem("loginDataF",res.data.firstname);
+    // localStorage.setItem("loginDataL",res.data.lastname);
+    localStorage.setItem("loginDataU", res.data.username);
     localStorage.setItem("loginDataE",res.data.email);
+    // localStorage.setItem("patientId", res.data.user_id);
+    // localStorage.setItem("patientEmail",res.data.email);
     localStorage.setItem("loginDataP",res.data.phone);
     localStorage.setItem("loginDataG",res.data.gender);
     localStorage.setItem("loginDataB",res.data.bloodgroup);

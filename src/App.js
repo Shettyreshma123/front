@@ -9,6 +9,7 @@ import Doctor from "./component/doctor/Doctor";
 import Admin from "./component/admin/Admin";
 import Nurse from "./component/nurse/Nurse";
 import Receptionist from "./component/receptionist/Receptionist";
+
 // import Patient from "./component/patient/Patient"
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -25,6 +26,7 @@ import Menu from "./pages/Menu";
 import Pagenotfound from "./pages/Pagenotfound";
 import Lab from "./component/labtechnician/Lab";
 import PatTracking from "./component/patient/PatTracking";
+import Billing from "./component/receptionist/Billing";
 
 // import LoginUser from './pages/LoginUser';
 
@@ -55,6 +57,7 @@ function App() {
           <Route path="/menu" element={<Menu />} />
           <Route path="/pattracking" element={<PatTracking />} />
           <Route path="*" element={<Pagenotfound />} />
+          <Route path="/billing" element={< Billing/>} />
         </Routes>
       </BrowserRouter>
       <ToastContainer />
